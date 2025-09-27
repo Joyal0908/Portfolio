@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %} Admin {% endblock %}
+
+
+{% block content %}
+
+<div class="dash">
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <div class="button">
+            <a href="{{ url_for('add_project') }}" class="btn-admin">
+                <i class="fas fa-plus-circle"></i> Add Project
+            </a>
+            <a href="{{ url_for('add_skill')}}" class="btn-admin">
+                <i class="fas fa-plus-circle"></i> Add Skill
+            </a>
+        </div>
+    </div>
+</div>
+
+<section id="statistics" class="statistics-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Project Statistics</h2>
+            <p>Here's a quick look at your portfolio achievements and metrics.</p>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3>{{ project_statistics.total_projects }}</h3>
+                    <p>Total Projects</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>{{ project_statistics.completed_projects }}</h3>
+                    <p>Completed</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-spinner"></i>
+                    </div>
+                    <h3>{{ project_statistics.ongoing_projects }}</h3>
+                    <p>Ongoing</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>{{ project_statistics.clients }}</h3>
+                    <p>Clients</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4 mx-auto">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>{{ project_statistics.technologies_used }}</h3>
+                    <p>Technologies</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

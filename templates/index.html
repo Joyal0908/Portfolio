@@ -1,0 +1,268 @@
+{% extends 'base.html' %}
+
+{% block title %} PORTFOLIO {% endblock %}
+
+
+{% block content %}
+
+
+<!-- About -->
+<section id="about" class="about m-5">
+    <div class="container">
+        <h1 class="text-center mb-5">About Me</h1>
+        <div class="row align-items-center">
+
+            <!-- Text Section -->
+            <div class="col-md-6">
+                <p class="fs-5">
+                    I am a passionate <b>Full Stack Web Developer</b> with strong expertise in both frontend and backend
+                    technologies. With hands-on experience in building dynamic, scalable, and business-focused web
+                    applications, I specialize in delivering end-to-end solutions—from intuitive user interfaces to
+                    robust
+                    backend systems.
+                </p>
+                <!-- Resume Download Button -->
+                <a href="{{ url_for('static', filename='resume/resume.pdf') }}" download class="btn btn-primary">
+                    Download My Resume
+                </a>
+            </div>
+
+            <!-- Image Section -->
+            <div class="col-md-6 text-center">
+                <img src="{{ url_for('static', filename='img.jpg') }}" alt="About Me" class="img-fluid shadow-lg"
+                    style="max-width: 400px;">
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Project -->
+<section id="project" class="project m-5">
+    <div class="container">
+        <h1 class="text-center mb-5">My Projects</h1>
+        <div class="row">
+            {% for project in projects %}
+            <div class="card col-md-12">
+                <div class="card-body">
+                    <h4 class="card-id" name="id">Project</h4>
+                    <p class="card-title" name="title">{{ project.project_title }}</p>
+                    <p class="card-description" name="description">{{ project.description }}</p>
+                    <button class="btn btn-primary"><a href="{{ project.link }}" target="_blank">Website
+                            Link</a></button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Skill -->
+<section id="skill"" class="skills-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>My Skills</h2>
+            <p>Here are the technologies and tools I specialize in. I'm constantly learning and expanding my skill set.
+            </p>
+        </div>
+        {% for category, skills in skill_categories.items() %}
+        <div class="skill-category {{ category }}">
+            <div class="category-header">
+                <div class="category-icon">
+                    {% if category=='frontend' %}
+                    <i class="fas fa-code"></i>
+                    {% elif category=='backend' %}
+                    <i class="fas fa-server"></i>
+                    {% elif category=='database' %}
+                    <i class="fas fa-database"></i>
+                    {% endif %}
+                </div>
+                <h3 class="category-title">{{ category.capitalize() }} Development</h3>
+            </div>
+            <div class="row">
+                {% for skill in skills %}
+                <div class="col-lg-6 mb-4">
+                    <div class="skill-card animate-on-scroll">
+                        <div class="skill-header">
+                            <i class="{{ skill.icon_class }} skill-icon"></i>
+                            <h4 class="skill-name">{{ skill.name }}</h4>
+                        </div>
+                        <p>{{ skill.description }}</p>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="{{ skill.proficiency_percent }}"></div>
+                        </div>
+                        <div class="skill-percent">
+                            <span>{{ skill.proficiency_level }}</span>
+                            <span>{{ skill.proficiency_percent }}%</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+<!-- Contact Section -->
+<section id="contact" class="contact-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="section-title animate__animated animate__fadeInDown">
+                    <h2>Get In Touch</h2>
+                    <p class="lead">We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 animate__animated animate__fadeInLeft animate__delay-1s">
+                <div class="contact-form">
+                    <form action="/contact" method="POST">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="name" name="name"
+                                        placeholder="Enter your name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        placeholder="Enter your email" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mobile" class="form-label">Mobile Number</label>
+                            <input type="tel" class="form-control" id="mobile" placeholder="Enter your mobile number"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Your Message</label>
+                            <textarea class="form-control" id="message" rows="5" name="message"
+                                placeholder="Enter your message" required></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-send">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-lg-4 animate__animated animate__fadeInRight animate__delay-1s">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Our Location</h4>
+                            <p>123 Business Avenue, Suite 100<br>New York, NY 10001</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Phone Number</h4>
+                            <p>+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Email Address</h4>
+                            <p>info@example.com</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Working Hours</h4>
+                            <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4 mb-md-0 animate-fade-in">
+                <h5>About Us</h5>
+                <p>We are a creative team dedicated to building amazing digital experiences. Our mission is to help
+                    businesses grow through innovative solutions.</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-6 mb-4 mb-md-0 animate-fade-in animate-delay-1">
+                <h5>Quick Links</h5>
+                <ul class="footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Portfolio</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0 animate-fade-in animate-delay-2">
+                <h5>Our Services</h5>
+                <ul class="footer-links">
+                    <li><a href="#">Web Design</a></li>
+                    <li><a href="#">Web Development</a></li>
+                    <li><a href="#">Graphic Design</a></li>
+                    <li><a href="#">Digital Marketing</a></li>
+                    <li><a href="#">SEO Optimization</a></li>
+                    <li><a href="#">App Development</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 animate-fade-in animate-delay-3">
+                <h5>Declaration</h5>
+                <div class="declaration-content">
+                    <p>We are committed to providing high-quality services with integrity and professionalism. Our team
+                        follows industry best practices to ensure client satisfaction.</p>
+                    <p class="mt-3"><i class="fas fa-certificate me-2"></i> Certified Company</p>
+                    <p><i class="fas fa-award me-2"></i> Award Winning Team</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="copyright animate-fade-in">
+            <p>&copy; 2023 Your Company Name. All Rights Reserved. | Designed with <i
+                    class="fas fa-heart text-danger"></i> by Creative Team</p>
+        </div>
+    </div>
+</footer>
+
+{% endblock %}

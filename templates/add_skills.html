@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %} Add Skills {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">{% if skill %}Edit Skill{% else %}Add New Skill{% endif %}</h2>
+    <form method="POST">
+        <!-- Category -->
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select class="form-select" id="category" name="category" required>
+                <option value="">Select Category</option>
+                <option value="frontend" {% if skill and skill.category=='frontend' %}selected{% endif %}>Frontend</option>
+                <option value="backend" {% if skill and skill.category=='backend' %}selected{% endif %}>Backend</option>
+                <option value="database" {% if skill and skill.category=='database' %}selected{% endif %}>Database</option>
+            </select>
+        </div>
+
+        <!-- Skill Name -->
+        <div class="mb-3">
+            <label for="name" class="form-label">Skill Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="e.g. HTML5" 
+                   value="{% if skill %}{{ skill.name }}{% endif %}" required>
+        </div>
+
+        <!-- Icon Class -->
+        <div class="mb-3">
+            <label for="icon_class" class="form-label">Font Awesome Icon Class</label>
+            <input type="text" class="form-control" id="icon_class" name="icon_class" placeholder="e.g. fab fa-html5" 
+                   value="{% if skill %}{{ skill.icon_class }}{% endif %}" required>
+            <small class="form-text text-muted">Use Font Awesome icon class for skill icons.</small>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" required>{% if skill %}{{ skill.description }}{% endif %}</textarea>
+        </div>
+
+        <!-- Proficiency Level -->
+        <div class="mb-3">
+            <label for="proficiency_level" class="form-label">Proficiency Level</label>
+            <select class="form-select" id="proficiency_level" name="proficiency_level" required>
+                <option value="">Select Level</option>
+                <option value="Beginner" {% if skill and skill.proficiency_level=='Beginner' %}selected{% endif %}>Beginner</option>
+                <option value="Intermediate" {% if skill and skill.proficiency_level=='Intermediate' %}selected{% endif %}>Intermediate</option>
+                <option value="Advanced" {% if skill and skill.proficiency_level=='Advanced' %}selected{% endif %}>Advanced</option>
+                <option value="Proficient" {% if skill and skill.proficiency_level=='Proficient' %}selected{% endif %}>Proficient</option>
+            </select>
+        </div>
+
+        <!-- Proficiency Percent -->
+        <div class="mb-3">
+            <label for="proficiency_percent" class="form-label">Proficiency Percent</label>
+            <input type="number" class="form-control" id="proficiency_percent" name="proficiency_percent" min="0" max="100" 
+                   value="{% if skill %}{{ skill.proficiency_percent }}{% endif %}" required>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">{% if skill %}Update Skill{% else %}Add Skill{% endif %}</button>
+        <a href="{{ url_for('admin') }}" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+</div>
+
+
+
+
+<!-- Add Skill Button -->
+<div class="container mt-5">
+    <h2 class="mb-4">Manage Skills</h2>
+
+    <!-- <a href="{{ url_for('add_skill') }}" class="btn btn-success mb-3">Add New Skill</a> -->
+
+    <table class="table table-striped table-bordered align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Category</th>
+                <th>Skill Name</th>
+                <th>Icon Class</th>
+                <th>Description</th>
+                <th>Proficiency Level</th>
+                <th>Proficiency %</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for skill in skills %}
+            <tr>
+                <td>{{ skill.id }}</td>
+                <td>{{ skill.category.capitalize() }}</td>
+                <td>{{ skill.name }}</td>
+                <td><i class="{{ skill.icon_class }}"></i> {{ skill.icon_class }}</td>
+                <td>{{ skill.description }}</td>
+                <td>{{ skill.proficiency_level }}</td>
+                <td>{{ skill.proficiency_percent }}%</td>
+                <td>
+                    <a href="{{ url_for('edit_skill', skill_id=skill.id) }}" class="btn btn-primary btn-sm">Edit</a>
+                    <a href="{{ url_for('delete_skill', skill_id=skill.id) }}" class="btn btn-danger btn-sm"
+                       onclick="return confirm('Are you sure you want to delete this skill?');">Delete</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="8" class="text-center">No skills found. Add new skills to display here.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

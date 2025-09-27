@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {% block title %} {% endblock %} </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='skill.css') }}">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+
+<body>
+    
+    <div class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <!-- Brand -->
+            <a class="navbar-brand" href="#">Portfolio</a>
+
+            <!-- Nav Links -->
+            <ul class="navbar-nav ms-auto"> <!-- ms-auto → right side align -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#project">Project</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#skill">Skill</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Admin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='script1.js') }}"></script>
+    <script src="{{ url_for('static', filename='skill.js') }}""></script>
+</body>
+</html>
